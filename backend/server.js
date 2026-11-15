@@ -41,7 +41,7 @@ async function fetchGemini(url, options) {
 
 const app = express();
 const DEFAULT_PORT = Number(process.env.PORT || 5000);
-const PYTHON_EXECUTABLE = process.env.PYTHON_EXECUTABLE || 'python3';
+const PYTHON_EXECUTABLE = process.env.PYTHON_EXECUTABLE || (fs.existsSync('/opt/venv/bin/python') ? '/opt/venv/bin/python' : 'python3');
 
 function startServer(port) {
   const server = app.listen(port, () => {

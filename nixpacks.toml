@@ -1,18 +1,24 @@
-# Nixpacks build configuration for Railway
+# Nixpacks build configuration for Railway (Node.js + Python Virtualenv)
 [phases.setup]
-nixPkgs = ["nodejs_20", "python310", "python310Packages.pip"]
+nixPkgs = ["nodejs_20", "python310"]
 
 [phases.install]
 cmds = [
+  "python3 -m venv /opt/venv",
+  "/opt/venv/bin/pip install --upgrade pip setuptools wheel",
+  "/opt/venv/bin/pip install -r backend/requirements.txt",
   "npm install --prefix backend",
-  "npm install --prefix frontend",
-  "python3 -m pip install -r backend/requirements.txt"
+  "npm install --prefix frontend"
 ]
 
 [phases.build]
 cmds = [
   "npm run build --prefix frontend"
 ]
+
+[variables]
+PATH = "/opt/venv/bin:$PATH"
+PYTHON_EXECUTABLE = "/opt/venv/bin/python"
 
 [start]
 cmd = "node backend/server.js"
