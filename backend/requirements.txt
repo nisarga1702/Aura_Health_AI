@@ -1,0 +1,23 @@
+# ==============================================================================
+# AURA-Health AI: Production Python Requirements
+# ==============================================================================
+
+# Core Numerical & Data Science
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+
+# Image & Signal Processing (Headless for cloud hosting)
+opencv-python-headless>=4.8.0
+Pillow>=10.0.0
+
+# Machine Learning Classifiers
+scikit-learn>=1.3.0
+joblib>=1.3.0
+
+# Generative AI & Vision
+google-generativeai>=0.3.0
+protobuf>=4.25.0,<6.0.0
+
+# Analytics & Visualization
+matplotlib>=3.7.0

@@ -1,0 +1,18 @@
+# Nixpacks build configuration for Railway
+[phases.setup]
+nixPkgs = ["nodejs_20", "python310", "python310Packages.pip"]
+
+[phases.install]
+cmds = [
+  "npm install --prefix backend",
+  "npm install --prefix frontend",
+  "python3 -m pip install -r backend/requirements.txt"
+]
+
+[phases.build]
+cmds = [
+  "npm run build --prefix frontend"
+]
+
+[start]
+cmd = "node backend/server.js"

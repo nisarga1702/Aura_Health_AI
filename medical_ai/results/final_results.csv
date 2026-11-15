@@ -1,0 +1,4 @@
+Modality,Model,Accuracy,Precision,Recall,F1,Sensitivity,Specificity,ROC-AUC
+Retinal,EfficientNetB0,0.9985,0.9985,0.9985,0.9985,0.9975,1.0,1.0
+ECG,EfficientNetB0,0.8591,0.8599,0.8591,0.8575,0.9205,0.7705,0.9229
+Diabetes,XGBoost,0.7495,0.751,0.7495,0.7488,0.7962,0.7012,0.8241

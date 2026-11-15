@@ -1,0 +1,35 @@
+[
+  {
+    "id": "p1",
+    "name": "Alice Smith",
+    "age": 30,
+    "gender": "F",
+    "vitals": {
+      "systolicBP": 115,
+      "heartRate": 78,
+      "troponin": 0.01,
+      "eGFR": 95,
+      "serumCreatinine": 0.9,
+      "BUN": 18,
+      "HbA1c": 5.2,
+      "fastingBloodSugar": 92
+    }
+  },
+  {
+    "id": "p2",
+    "name": "Bob Johnson",
+    "age": 55,
+    "gender": "M",
+    "vitals": {
+      "systolicBP": 130,
+      "heartRate": 85,
+      "troponin": 0.03,
+      "eGFR": 80,
+      "serumCreatinine": 1.2,
+      "BUN": 22,
+      "HbA1c": 6.5,
+      "fastingBloodSugar": 110
+    }
+  }
+]
+

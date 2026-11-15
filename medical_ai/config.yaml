@@ -1,0 +1,124 @@
+# ═══════════════════════════════════════════════════════════════════
+#  config.yaml  –  Multimodal Medical AI Framework
+#  Edit this file to change datasets, models, and hyperparameters.
+#  Values here are read by config.py at startup (when yaml is used).
+# ═══════════════════════════════════════════════════════════════════
+
+# ── Model selection ─────────────────────────────────────────────────
+# Change IMAGE_MODEL_NAME to swap the backbone for retinal and ECG.
+# Change TABULAR_MODEL_NAME to swap the diabetes model.
+#
+# Supported image models:
+#   EfficientNetB0  EfficientNetB3  ResNet50  ResNet50V2
+#   MobileNetV2  VGG16  InceptionV3  DenseNet121
+#
+# Supported tabular models:
+#   XGBoost  RandomForest  LogisticRegression  MLP
+
+image_model_name:    "EfficientNetB0"
+tabular_model_name:  "XGBoost"
+
+# ── Reproducibility ─────────────────────────────────────────────────
+random_seed: 42
+
+# ── Dataset paths ───────────────────────────────────────────────────
+# Use absolute paths or paths relative to the project root.
+retinal_dataset_path: "data/retinal"
+ecg_dataset_path:     "data/ecg"
+diabetes_csv_path:    "data/diabetes/diabetes.csv"
+
+# Target column name in the diabetes CSV
+diabetes_target_column: "Outcome"
+
+# Columns to zero-out as physiologically impossible
+diabetes_zero_as_nan_columns:
+  - "Glucose"
+  - "BloodPressure"
+  - "SkinThickness"
+  - "Insulin"
+  - "BMI"
+
+# Columns to drop unconditionally (patient IDs, free-text, etc.)
+diabetes_drop_columns: []
+
+# ── Image hyperparameters ───────────────────────────────────────────
+image_size:    [224, 224]
+batch_size:    32
+epochs:        50
+learning_rate: 0.0001
+dropout_rate:  0.4
+fine_tune_at:  100           # freeze backbone layers before this index
+
+# Early stopping / LR scheduler
+early_stopping_patience: 10
+reduce_lr_patience:      5
+reduce_lr_factor:        0.3
+min_lr:                  0.0000001
+
+# Split fractions
+validation_split: 0.15
+test_split:       0.15
+
+# ── Image augmentation ──────────────────────────────────────────────
+retinal_augmentation:
+  rotation_range:    15
+  width_shift_range: 0.05
+  height_shift_range: 0.05
+  zoom_range:        0.10
+  horizontal_flip:   true
+  vertical_flip:     false
+  brightness_range:  [0.85, 1.15]
+  fill_mode:         "nearest"
+
+# Very conservative – preserves waveform morphology
+ecg_augmentation:
+  rotation_range:    5
+  width_shift_range: 0.02
+  height_shift_range: 0.02
+  zoom_range:        0.05
+  horizontal_flip:   false
+  vertical_flip:     false
+  brightness_range:  [0.95, 1.05]
+  fill_mode:         "nearest"
+
+# ── XGBoost hyperparameters ─────────────────────────────────────────
+xgboost:
+  n_estimators:      500
+  max_depth:         6
+  learning_rate:     0.05
+  subsample:         0.8
+  colsample_bytree:  0.8
+  eval_metric:       "logloss"
+
+# ── MLP hyperparameters (used when tabular_model_name = MLP) ────────
+mlp:
+  hidden_layers:  [256, 128, 64]
+  dropout:        0.3
+  epochs:         200
+  batch_size:     64
+  learning_rate:  0.001
+
+# ── Output paths ────────────────────────────────────────────────────
+saved_models_dir: "saved_models"
+results_dir:      "results"
+logs_dir:         "logs"
+
+# ── Metric averaging for multiclass ─────────────────────────────────
+# Options: "macro" | "weighted" | "micro"
+metrics_average: "weighted"
+
+# ── Expected dataset directory structure ────────────────────────────
+# retinal/
+#   ├── class_name_1/
+#   │     ├── image001.jpg
+#   │     └── ...
+#   └── class_name_2/
+#         └── ...
+#
+# ecg/
+#   ├── Normal/
+#   ├── Abnormal_Heartbeat/
+#   └── ...
+#
+# diabetes/
+#   └── diabetes.csv          ← columns include the target column above

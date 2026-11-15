@@ -1,0 +1,48 @@
+# ==============================================================
+# AURA-Health AI — Root .gitignore
+# ==============================================================
+
+# ── Python ─────────────────────────────────────────────────────
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.Python
+
+# ── Node ───────────────────────────────────────────────────────
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# ── Large datasets & models (too big for GitHub) ────────────────
+backend/datasets/
+medical_ai/saved_models/
+medical_ai/training_logs/
+medical_ai/logs/
+backend/uploads/
+*.keras
+*.h5
+*.pt
+*.pth
+
+# ── Secrets ────────────────────────────────────────────────────
+backend/.env
+.env
+*.env
+
+# ── Build output ───────────────────────────────────────────────
+# (frontend/dist is tracked for instant zero-build production hosting)
+
+# ── OS junk ────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Misc ───────────────────────────────────────────────────────
+*.log
+aura-health-ai/
+research_papers/
